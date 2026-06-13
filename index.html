@@ -1,6 +1,27 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
+<!-- 
+  EPIC SYSTEM DEMO — SINGLE FILE BY DESIGN
+  =========================================
+  This entire interactive website (beautiful custom design system, all modals, 
+  fully working simulated terminals, media viewer, heartbeat, launchers, 
+  personal vs retail comparison, keyboard shortcuts, etc.) lives in this 
+  ONE HTML FILE.
+
+  Why you see "a ton of code" when you View Page Source:
+  - It is the complete, self-contained demo.
+  - Zero build step, zero external dependencies for the logic.
+  - Works when you just double-click index.html locally.
+  - Perfect for GitHub Pages (instant deploy, no GitHub Actions needed).
+
+  The rendered page is clean, polished, and professional.
+  The source is long because it contains the full working product.
+
+  Real repo: https://github.com/Sm0k367/epic-system (private)
+  This demo: https://github.com/Sm0k367/epic-system-demo
+-->
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>EPIC • Home Base — Epic Tech AI Personal OS</title>
@@ -308,6 +329,14 @@
   </style>
 </head>
 <body>
+  <!-- SINGLE-FILE DEMO BANNER -->
+  <div style="background:#0a090e; color:#a49aa9; font-size:10px; text-align:center; padding:4px 12px; border-bottom:1px solid #322d39; font-family:var(--font-mono, monospace); letter-spacing:0.5px; display:flex; align-items:center; justify-content:center; gap:8px; flex-wrap:wrap;">
+    <span>⚡ SINGLE-FILE DEMO</span>
+    <span style="opacity:0.5">•</span>
+    <span>The entire beautiful, working site you see right now is in <strong>this one index.html</strong>.</span>
+    <a href="https://github.com/Sm0k367/epic-system-demo/blob/main/index.html" target="_blank" style="color:#c84df0; text-decoration:underline; font-size:9px;">view on GitHub →</a>
+  </div>
+
   <!-- TOP BAR -->
   <div class="sticky top-0 z-50 border-b border-[var(--color-border)] bg-[var(--color-bg)]/95 backdrop-blur-xl">
     <div class="container flex items-center justify-between h-16">
@@ -751,6 +780,10 @@
       </div>
       
       <div class="text-[10px] text-[var(--color-text-faint)] mt-8 font-mono tracking-widest">EPIC SYSTEM • SMOKE • 2026</div>
+      <div class="mt-3 text-[9px] text-[var(--color-text-faint)]/60 max-w-xs mx-auto">
+        This page is deliberately one self-contained HTML file.<br>
+        The "ton of code" you see in View Source is the entire working demo.
+      </div>
     </div>
   </div>
 
