@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EPIC • Home Base — Epic Tech AI Personal OS</title>
+  <meta name="description" content="Live demo of Epic System — the personal OS for SMOKE. Continuity, future-proofing, and the retail Epic OS product.">
+  <meta property="og:title" content="EPIC • Home Base — Epic Tech AI Personal OS">
+  <meta property="og:description" content="The live system for SMOKE. Personal OS on Acer, retail product for the ecosystem, heartbeat continuity, and media vault.">
+  <meta property="og:image" content="https://sm0k367.github.io/epic-system-demo/og-preview.png">
+  
+  <!-- Tailwind Play CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Fontshare: Satoshi (body) + Clash Grotesk (display) -->
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,600,700&f[]=clash-grotesk@600,700&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <style>
+    :root {
+      /* === EPIC CYBER PALETTE (customized from generator for "smoke neon cyber continuity") === */
+      --color-bg: #0f0d12;
+      --color-surface: #17151c;
+      --color-surface-2: #1f1c25;
+      --color-surface-offset: #25222b;
+      --color-surface-dynamic: #2c2833;
+      --color-divider: #322d39;
+      --color-border: #3a3542;
+      
+      --color-text: #e6e1eb;
+      --color-text-muted: #9a8fa3;
+      --color-text-faint: #655c6f;
+      --color-text-inverse: #0f0d12;
+      
+      --color-primary: #c84df0;        /* Neon magenta-purple — the "EPIC" signal */
+      --color-primary-hover: #a63ad1;
+      --color-primary-active: #8a2db0;
+      --color-primary-highlight: #3a2a45;
+      
+      --color-accent: #f0c15a;         /* Warm continuity gold — heartbeat, future-proof */
+      --color-accent-hover: #d9a93d;
+      --color-accent-active: #b88c2a;
+      
+      --color-success: #4ade80;
+      --color-warning: #fbbf24;
+      --color-error: #f87171;
+      
+      /* Spacing (4px system) */
+      --space-1: 0.25rem;
+      --space-2: 0.5rem;
+      --space-3: 0.75rem;
+      --space-4: 1rem;
+      --space-5: 1.25rem;
+      --space-6: 1.5rem;
+      --space-8: 2rem;
+      --space-10: 2.5rem;
+      --space-12: 3rem;
+      --space-16: 4rem;
+      
+      /* Type scale (fluid) */
+      --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+      --text-sm: clamp(0.875rem, 0.8rem + 0.35vw, 1rem);
+      --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+      --text-lg: clamp(1.125rem, 1rem + 0.75vw, 1.5rem);
+      --text-xl: clamp(1.5rem, 1.2rem + 1.25vw, 2.25rem);
+      --text-2xl: clamp(2rem, 1.2rem + 2.5vw, 3.5rem);
+      
+      /* Radius */
+      --radius-sm: 0.375rem;
+      --radius-md: 0.5rem;
+      --radius-lg: 0.75rem;
+      --radius-xl: 1rem;
+      --radius-full: 9999px;
+      
+      /* Motion */
+      --transition-interactive: 180ms cubic-bezier(0.16, 1, 0.3, 1);
+      --transition-smooth: 300ms cubic-bezier(0.16, 1, 0.3, 1);
+      
+      /* Shadows */
+      --shadow-sm: 0 1px 2px oklch(0 0 0 / 0.3);
+      --shadow-md: 0 4px 12px oklch(0 0 0 / 0.35);
+      --shadow-lg: 0 12px 32px oklch(0 0 0 / 0.45);
+      
+      /* Content widths */
+      --content-narrow: 640px;
+      --content-default: 960px;
+      --content-wide: 1200px;
+      
+      /* Fonts */
+      --font-display: 'Clash Grotesk', 'Inter', system-ui, sans-serif;
+      --font-body: 'Satoshi', 'Inter', system-ui, -apple-system, sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    }
+    
+    [data-theme="light"] {
+      --color-bg: #f5f4f6;
+      --color-surface: #faf9fa;
+      --color-surface-2: #f1eff3;
+      --color-surface-offset: #e9e6ed;
+      --color-surface-dynamic: #ded9e4;
+      --color-divider: #d1ccd7;
+      --color-border: #c4becb;
+      --color-text: #1f1c22;
+      --color-text-muted: #746c7a;
+      --color-text-faint: #a49aa9;
+      --color-text-inverse: #f5f4f6;
+      --color-primary: #7f28bd;
+      --color-primary-hover: #631f93;
+      --color-primary-active: #4f186f;
+      --color-primary-highlight: #e8d9f5;
+      --color-accent: #c68b39;
+      --color-accent-hover: #a36f2a;
+    }
+    
+    * { box-sizing: border-box; }
+    
+    body {
+      font-family: var(--font-body);
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.6;
+      min-height: 100dvh;
+    }
+    
+    .font-display { font-family: var(--font-display); }
+    .font-mono { font-family: var(--font-mono); }
+    
+    h1, h2, h3, h4 { font-family: var(--font-display); text-wrap: balance; line-height: 1.1; }
+    
+    .section { padding-block: var(--space-12); }
+    @media (min-width: 768px) { .section { padding-block: var(--space-16); } }
+    
+    .container { max-width: var(--content-default); margin-inline: auto; padding-inline: var(--space-4); }
+    .container-wide { max-width: var(--content-wide); }
+    
+    .card {
+      background-color: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      transition: transform var(--transition-interactive), 
+                  box-shadow var(--transition-interactive),
+                  border-color var(--transition-interactive);
+    }
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--color-primary);
+    }
+    .card:active { transform: translateY(0); }
+    
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-2);
+      padding: var(--space-3) var(--space-5);
+      border-radius: var(--radius-md);
+      font-size: var(--text-sm);
+      font-weight: 600;
+      transition: all var(--transition-interactive);
+      cursor: pointer;
+      border: 1px solid transparent;
+    }
+    .btn-primary {
+      background-color: var(--color-primary);
+      color: var(--color-text-inverse);
+    }
+    .btn-primary:hover { background-color: var(--color-primary-hover); }
+    .btn-primary:active { background-color: var(--color-primary-active); }
+    
+    .btn-secondary {
+      background-color: var(--color-surface-2);
+      color: var(--color-text);
+      border-color: var(--color-border);
+    }
+    .btn-secondary:hover { 
+      background-color: var(--color-surface-offset);
+      border-color: var(--color-primary);
+    }
+    
+    .btn-ghost {
+      background: transparent;
+      color: var(--color-text-muted);
+    }
+    .btn-ghost:hover { 
+      background-color: var(--color-surface-offset);
+      color: var(--color-text);
+    }
+    
+    .nav-link {
+      padding: var(--space-2) var(--space-3);
+      border-radius: var(--radius-sm);
+      color: var(--color-text-muted);
+      font-size: var(--text-sm);
+      transition: all var(--transition-interactive);
+    }
+    .nav-link:hover { color: var(--color-text); background: var(--color-surface-offset); }
+    .nav-link.active { 
+      color: var(--color-primary); 
+      background: var(--color-primary-highlight);
+      font-weight: 600;
+    }
+    
+    .status-dot {
+      width: 8px; height: 8px;
+      background: var(--color-success);
+      border-radius: 50%;
+      display: inline-block;
+      box-shadow: 0 0 0 3px oklch(from var(--color-success) l c h / 0.2);
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+    
+    .terminal {
+      background: #0a090e;
+      border: 1px solid #322d39;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    
+    .epic-grid {
+      background-image: 
+        linear-gradient(rgba(200, 77, 240, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(200, 77, 240, 0.03) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+    
+    .section-header {
+      font-size: var(--text-2xl);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      margin-bottom: var(--space-3);
+    }
+    
+    .label {
+      font-size: var(--text-xs);
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--color-text-faint);
+    }
+    
+    .os-window {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+    }
+    
+    .nav-active {
+      position: relative;
+    }
+    .nav-active:after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--color-primary);
+    }
+    
+    .stat-value {
+      font-family: var(--font-display);
+      font-size: var(--text-xl);
+      font-weight: 700;
+      line-height: 1;
+    }
+    
+    .file-tree {
+      font-family: var(--font-mono);
+      font-size: 13px;
+    }
+    
+    .demo-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--color-primary-highlight);
+      color: var(--color-primary);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 9px;
+      border-radius: 9999px;
+      letter-spacing: 0.5px;
+    }
+    
+    .metric {
+      transition: all var(--transition-smooth);
+    }
+    
+    .vault-card {
+      transition: transform 200ms cubic-bezier(0.16,1,0.3,1), 
+                  box-shadow 200ms cubic-bezier(0.16,1,0.3,1);
+    }
+    .vault-card:hover {
+      transform: translateY(-4px) scale(1.01);
+      box-shadow: var(--shadow-lg);
+    }
+  </style>
+</head>
+<body>
+  <!-- TOP BAR -->
+  <div class="sticky top-0 z-50 border-b border-[var(--color-border)] bg-[var(--color-bg)]/95 backdrop-blur-xl">
+    <div class="container flex items-center justify-between h-16">
+      <div class="flex items-center gap-3">
+        <!-- Logo -->
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-[var(--color-primary)] to-[#a63ad1] flex items-center justify-center">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+              <path d="M2 17l10 5 10-5"/>
+              <path d="M2 12l10 5 10-5"/>
+              <circle cx="12" cy="12" r="2" fill="white"/>
+            </svg>
+          </div>
+          <div>
+            <div class="font-display text-2xl font-bold tracking-tighter">EPIC</div>
+            <div class="text-[10px] text-[var(--color-text-faint)] -mt-1.5">SYSTEM</div>
+          </div>
+        </div>
+        
+        <div class="hidden md:flex items-center gap-2 ml-3 pl-3 border-l border-[var(--color-border)]">
+          <div class="demo-badge">
+            <div class="status-dot"></div>
+            <span>LIVE DEMO</span>
+          </div>
+          <div class="text-xs text-[var(--color-text-muted)]">of private <span class="font-mono text-[var(--color-primary)]">github.com/Sm0k367/epic-system</span></div>
+        </div>
+      </div>
+      
+      <div class="flex items-center gap-2">
+        <!-- Status -->
+        <div class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-[var(--color-surface)] border border-[var(--color-border)] text-xs">
+          <div class="flex items-center gap-1.5">
+            <span class="status-dot"></span>
+            <span class="font-medium text-[var(--color-success)]">SMOKE ONLINE</span>
+          </div>
+          <div class="w-px h-3 bg-[var(--color-border)]"></div>
+          <span class="font-mono text-[var(--color-text-faint)]">127.0.0.1:8780</span>
+        </div>
+        
+        <button onclick="continueSession()" 
+                class="btn btn-primary text-sm px-4 py-2 font-semibold">
+          <i data-lucide="play" class="w-4 h-4"></i>
+          <span class="hidden sm:inline">CONTINUE SESSION</span>
+          <span class="sm:hidden">Continue</span>
+        </button>
+        
+        <button onclick="window.open('https://github.com/Sm0k367/epic-system', '_blank')" 
+                class="btn btn-secondary text-sm px-3 py-2">
+          <i data-lucide="github" class="w-4 h-4"></i>
+        </button>
+        
+        <button onclick="toggleTheme()" 
+                class="btn btn-ghost p-2.5" aria-label="Toggle theme">
+          <i data-lucide="sun" class="w-4 h-4 dark:hidden"></i>
+          <i data-lucide="moon" class="w-4 h-4 hidden dark:block"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <div class="border-b border-[var(--color-border)] bg-[var(--color-bg)] epic-grid">
+    <div class="container pt-16 pb-14">
+      <div class="max-w-3xl">
+        <div class="inline-flex items-center gap-2 rounded-full bg-[var(--color-surface)] border border-[var(--color-border)] px-4 py-1 mb-6 text-xs tracking-[1px]">
+          <span class="text-[var(--color-primary)]">PERSONAL OS</span> 
+          <span class="text-[var(--color-text-faint)]">•</span> 
+          <span>RETAIL PRODUCT</span>
+          <span class="text-[var(--color-text-faint)]">•</span> 
+          <span>CONTINUITY ENGINE</span>
+        </div>
+        
+        <h1 class="font-display text-[52px] md:text-[68px] leading-[0.96] tracking-[-2.5px] font-bold mb-4">
+          Home base for<br>
+          <span class="bg-clip-text text-transparent bg-gradient-to-r from-[var(--color-primary)] via-[#e06c8d] to-[var(--color-accent)]">Epic Tech AI</span>
+        </h1>
+        
+        <p class="max-w-xl text-xl text-[var(--color-text-muted)] mb-8">
+          The private operating system that runs on SMOKE. 
+          One human. Full continuity. Future-proof by design.
+        </p>
+        
+        <div class="flex flex-wrap items-center gap-3">
+          <button onclick="continueSession()" 
+                  class="btn btn-primary px-8 py-3.5 text-base font-semibold">
+            <i data-lucide="terminal" class="w-5 h-5"></i>
+            <span>Launch Epic OS :8780</span>
+          </button>
+          <button onclick="document.getElementById('personal').scrollIntoView({behavior:'smooth'})" 
+                  class="btn btn-secondary px-6 py-3.5 text-base">
+            Explore the stack
+          </button>
+        </div>
+        
+        <div class="flex items-center gap-6 mt-8 text-sm">
+          <div class="flex items-center gap-2">
+            <i data-lucide="user" class="w-4 h-4 text-[var(--color-text-faint)]"></i>
+            <span class="text-[var(--color-text-muted)]">Built for <span class="font-semibold text-[var(--color-text)]">SMOKE</span> (Acer)</span>
+          </div>
+          <div class="hidden md:block w-px h-3.5 bg-[var(--color-border)]"></div>
+          <div class="text-[var(--color-text-faint)] text-xs font-mono">LAST SYNC • 2 MIN AGO</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LIVE STATS BAR -->
+  <div class="border-b border-[var(--color-border)] bg-[var(--color-surface)]">
+    <div class="container">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-px bg-[var(--color-border)]">
+        <div class="bg-[var(--color-bg)] px-5 py-4 flex items-center justify-between">
+          <div>
+            <div class="label">Uptime</div>
+            <div class="stat-value text-[var(--color-success)]">47d 9h 14m</div>
+          </div>
+          <i data-lucide="activity" class="w-8 h-8 text-[var(--color-success)]/70"></i>
+        </div>
+        <div class="bg-[var(--color-bg)] px-5 py-4 flex items-center justify-between">
+          <div>
+            <div class="label">Heartbeat</div>
+            <div class="stat-value">99.98%</div>
+          </div>
+          <i data-lucide="heart" class="w-8 h-8 text-[var(--color-primary)]/70"></i>
+        </div>
+        <div class="bg-[var(--color-bg)] px-5 py-4 flex items-center justify-between">
+          <div>
+            <div class="label">Scripts executed</div>
+            <div class="stat-value">1,284</div>
+          </div>
+          <i data-lucide="code-2" class="w-8 h-8 text-[var(--color-accent)]/70"></i>
+        </div>
+        <div class="bg-[var(--color-bg)] px-5 py-4 flex items-center justify-between">
+          <div>
+            <div class="label">Media vault</div>
+            <div class="stat-value">312 files</div>
+          </div>
+          <i data-lucide="film" class="w-8 h-8 text-[var(--color-text-muted)]"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUICK LAUNCHERS -->
+  <div class="container pt-8">
+    <div class="flex items-center justify-between mb-3 px-1">
+      <div class="label">One-click launchers</div>
+      <div class="text-[10px] text-[var(--color-text-faint)] font-mono">SMOKE ONLY • PERSONAL</div>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+      <button onclick="launchAction('continue')" class="card p-4 text-left group">
+        <div class="flex items-start justify-between">
+          <div>
+            <div class="font-semibold group-hover:text-[var(--color-primary)] transition-colors">CONTINUE SESSION.bat</div>
+            <div class="text-xs text-[var(--color-text-muted)] mt-0.5">Opens SESSION.md + Epic OS :8780 + Telegram</div>
+          </div>
+          <i data-lucide="play-circle" class="w-5 h-5 text-[var(--color-primary)] group-hover:scale-110 transition"></i>
+        </div>
+      </button>
+      
+      <button onclick="launchAction('epicos')" class="card p-4 text-left group">
+        <div class="flex items-start justify-between">
+          <div>
+            <div class="font-semibold group-hover:text-[var(--color-primary)] transition-colors">Epic OS.bat</div>
+            <div class="text-xs text-[var(--color-text-muted)] mt-0.5">Shell at http://127.0.0.1:8780</div>
+          </div>
+          <i data-lucide="terminal" class="w-5 h-5 text-[var(--color-accent)] group-hover:scale-110 transition"></i>
+        </div>
+      </button>
+      
+      <button onclick="launchAction('sync')" class="card p-4 text-left group">
+        <div class="flex items-start justify-between">
+          <div>
+            <div class="font-semibold group-hover:text-[var(--color-primary)] transition-colors">repo_sync.ps1</div>
+            <div class="text-xs text-[var(--color-text-muted)] mt-0.5">Push code changes safely to GitHub</div>
+          </div>
+          <i data-lucide="git-branch" class="w-5 h-5 text-[var(--color-success)] group-hover:scale-110 transition"></i>
+        </div>
+      </button>
+      
+      <button onclick="launchAction('install')" class="card p-4 text-left group">
+        <div class="flex items-start justify-between">
+          <div>
+            <div class="font-semibold group-hover:text-[var(--color-primary)] transition-colors">INSTALL LENOVO.bat</div>
+            <div class="text-xs text-[var(--color-text-muted)] mt-0.5">New machine bootstrap (fresh Acer/Lenovo)</div>
+          </div>
+          <i data-lucide="download" class="w-5 h-5 text-[var(--color-text-muted)] group-hover:scale-110 transition"></i>
+        </div>
+      </button>
+    </div>
+  </div>
+
+  <!-- PERSONAL OS (SMOKE) -->
+  <div id="personal" class="section container">
+    <div class="flex items-end justify-between mb-6">
+      <div>
+        <div class="label mb-1">LIVE ON SMOKE</div>
+        <h2 class="section-header">Personal Stack — You (SMOKE / Acer)</h2>
+      </div>
+      <div class="text-xs px-3 py-1 rounded-full bg-[var(--color-primary-highlight)] text-[var(--color-primary)] font-mono self-start mt-1">~/.openclaw/workspace</div>
+    </div>
+    
+    <div class="grid md:grid-cols-12 gap-4">
+      <!-- Workspace Tree -->
+      <div class="md:col-span-5 card p-5">
+        <div class="flex items-center gap-2 mb-4">
+          <i data-lucide="folder-tree" class="w-4 h-4"></i>
+          <span class="font-semibold text-sm">Workspace Tree</span>
+        </div>
+        
+        <div class="file-tree space-y-0.5 text-[var(--color-text)]">
+          <div class="flex items-center gap-1.5 text-[var(--color-primary)]">
+            <i data-lucide="folder" class="w-3.5 h-3.5"></i> 
+            <span class="font-medium">epic-system/</span>
+          </div>
+          <div class="pl-5 space-y-px text-[var(--color-text-muted)]">
+            <div class="flex items-center gap-1.5 hover:text-[var(--color-text)] cursor-pointer" onclick="showFileModal('personal/scripts')"><i data-lucide="folder" class="w-3 h-3"></i> personal/scripts/ <span class="text-[10px] text-[var(--color-accent)] ml-1">(kernel + media + trading)</span></div>
+            <div class="flex items-center gap-1.5 hover:text-[var(--color-text)] cursor-pointer" onclick="showFileModal('personal/bootstrap')"><i data-lucide="folder" class="w-3 h-3"></i> personal/bootstrap/ <span class="text-[10px] ml-1">(continuity, heartbeat)</span></div>
+            <div class="flex items-center gap-1.5 hover:text-[var(--color-text)] cursor-pointer" onclick="showFileModal('personal/skills')"><i data-lucide="folder" class="w-3 h-3"></i> personal/skills/ <span class="text-[10px] ml-1">(epic-os, agents)</span></div>
+            <div class="flex items-center gap-1.5 hover:text-[var(--color-text)] cursor-pointer" onclick="showFileModal('btc')"><i data-lucide="folder" class="w-3 h-3"></i> btc_epictechai_desk/</div>
+            <div class="flex items-center gap-1.5 hover:text-[var(--color-text)] cursor-pointer" onclick="showFileModal('ecosystem')"><i data-lucide="folder" class="w-3 h-3"></i> epictech_ecosystem/</div>
+            <div class="pl-4 flex items-center gap-1 text-[var(--color-text-faint)]"><i data-lucide="file-text" class="w-3 h-3"></i> SESSION.md</div>
+            <div class="pl-4 flex items-center gap-1 text-[var(--color-text-faint)]"><i data-lucide="file-text" class="w-3 h-3"></i> MEMORY.md (never committed)</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Identity + Live Info -->
+      <div class="md:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="card p-5">
+          <div class="label mb-3">Identity</div>
+          <div class="space-y-3 text-sm">
+            <div class="flex justify-between"><span class="text-[var(--color-text-muted)]">Human</span> <span class="font-semibold">SMOKE</span></div>
+            <div class="flex justify-between"><span class="text-[var(--color-text-muted)]">Primary machine</span> <span class="font-semibold">Acer (Predator)</span></div>
+            <div class="flex justify-between"><span class="text-[var(--color-text-muted)]">Secondary</span> <span class="font-semibold">Lenovo Legion (backup)</span></div>
+            <div class="flex justify-between"><span class="text-[var(--color-text-muted)]">Telegram</span> <span class="font-mono text-[var(--color-primary)]">@epictech_assistant_bot</span></div>
+          </div>
+        </div>
+        
+        <div class="card p-5 flex flex-col">
+          <div class="label mb-3">Live Environment</div>
+          <div class="flex-1 space-y-3 text-sm">
+            <div class="flex items-center justify-between">
+              <span class="text-[var(--color-text-muted)]">Workspace path</span>
+              <span class="font-mono text-xs bg-[var(--color-surface-offset)] px-2 py-px rounded">%USERPROFILE%\.openclaw\workspace</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-[var(--color-text-muted)]">Epic OS port</span>
+              <span class="font-mono text-xs">8780</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-[var(--color-text-muted)]">OpenClaw secrets</span>
+              <span class="text-[var(--color-success)] text-xs font-medium">RESTORED FROM BACKUP</span>
+            </div>
+          </div>
+          <button onclick="showTerminalModal('bootstrap')" class="mt-4 text-xs btn btn-secondary w-full py-2">
+            Run bootstrap/heartbeat.sh
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RETAIL PRODUCT -->
+  <div id="retail" class="section bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="container">
+      <div class="flex items-end justify-between mb-6">
+        <div>
+          <div class="label mb-1">SANITIZED FOR THE ECOSYSTEM</div>
+          <h2 class="section-header">Retail Product — Epic OS</h2>
+        </div>
+        <div class="text-xs px-3 py-1 rounded-full border border-[var(--color-border)] self-start mt-1">PUBLIC FACING</div>
+      </div>
+      
+      <div class="grid md:grid-cols-2 gap-5">
+        <div class="card p-6">
+          <div class="uppercase text-xs tracking-[1px] mb-3 text-[var(--color-accent)] font-semibold">What everyone else gets</div>
+          <ul class="space-y-3 text-sm">
+            <li class="flex gap-3"><i data-lucide="check" class="w-4 h-4 mt-0.5 text-[var(--color-success)]"></i> <span>Installable desktop OS (no personal paths or secrets)</span></li>
+            <li class="flex gap-3"><i data-lucide="check" class="w-4 h-4 mt-0.5 text-[var(--color-success)]"></i> <span>Clean folder structure: retail/epic-os/</span></li>
+            <li class="flex gap-3"><i data-lucide="check" class="w-4 h-4 mt-0.5 text-[var(--color-success)]"></i> <span>Public Telegram funnel: @epictech_public_bot</span></li>
+            <li class="flex gap-3"><i data-lucide="check" class="w-4 h-4 mt-0.5 text-[var(--color-success)]"></i> <span>Core scripts + templates only</span></li>
+            <li class="flex gap-3"><i data-lucide="check" class="w-4 h-4 mt-0.5 text-[var(--color-success)]"></i> <span>Full documentation for fresh installs</span></li>
+          </ul>
+        </div>
+        
+        <div class="card p-6 bg-[var(--color-bg)]">
+          <div class="uppercase text-xs tracking-[1px] mb-3 text-[var(--color-text-faint)] font-semibold">One-click install (new machine)</div>
+          <div class="terminal p-4 rounded-lg text-[var(--color-text)] text-xs mb-4 font-mono leading-relaxed">
+            git clone https://github.com/Sm0k367/epic-system.git $env:USERPROFILE\.openclaw\workspace<br>
+            cd $env:USERPROFILE\.openclaw\workspace<br>
+            .\INSTALL LENOVO.bat
+          </div>
+          <div class="text-[10px] text-[var(--color-text-muted)]">Then restore OpenClaw secrets from your personal backup. Details in deploy/lenovo/SETUP.md</div>
+          <button onclick="showTerminalModal('install-retail')" class="mt-4 btn btn-secondary text-xs w-full">Simulate fresh Lenovo install</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTINUITY + MEDIA VAULT -->
+  <div class="container section">
+    <div class="grid lg:grid-cols-2 gap-6">
+      <!-- Continuity -->
+      <div id="continuity">
+        <div class="label mb-2">THE ENGINE</div>
+        <h3 class="font-display text-3xl font-semibold tracking-tight mb-4">Continuity &amp; Heartbeat</h3>
+        
+        <div class="card p-5 space-y-4">
+          <div class="flex items-center justify-between text-sm">
+            <div class="flex items-center gap-2"><i data-lucide="heart-pulse" class="w-4 h-4"></i> <span>Heartbeat daemon</span></div>
+            <span class="font-mono text-xs text-[var(--color-success)]">RUNNING • 3s interval</span>
+          </div>
+          
+          <div class="grid grid-cols-3 gap-3 text-center">
+            <div class="bg-[var(--color-surface-2)] rounded-lg p-3">
+              <div class="text-xs text-[var(--color-text-muted)]">Last beat</div>
+              <div class="font-semibold">14s ago</div>
+            </div>
+            <div class="bg-[var(--color-surface-2)] rounded-lg p-3">
+              <div class="text-xs text-[var(--color-text-muted)]">Profiles</div>
+              <div class="font-semibold">SMOKE + LENOVO</div>
+            </div>
+            <div class="bg-[var(--color-surface-2)] rounded-lg p-3">
+              <div class="text-xs text-[var(--color-text-muted)]">Backups</div>
+              <div class="font-semibold">47 (LFS + OneDrive)</div>
+            </div>
+          </div>
+          
+          <button onclick="runHeartbeat()" class="btn btn-secondary w-full text-sm py-2.5">Trigger manual heartbeat + continuity check</button>
+        </div>
+      </div>
+      
+      <!-- Media Vault -->
+      <div id="vault">
+        <div class="flex items-center justify-between mb-3">
+          <div>
+            <div class="label">AUTO-UPLOADED</div>
+            <h3 class="font-display text-3xl font-semibold tracking-tight">Media Vault</h3>
+          </div>
+          <button onclick="showVaultActions()" class="btn btn-ghost text-xs">Manage</button>
+        </div>
+        
+        <div class="grid grid-cols-3 gap-3">
+          <div onclick="viewMedia(0)" class="vault-card cursor-pointer card overflow-hidden">
+            <div class="h-20 bg-gradient-to-br from-purple-950 to-[var(--color-primary)] flex items-center justify-center">
+              <i data-lucide="video" class="w-6 h-6 text-white/70"></i>
+            </div>
+            <div class="p-2.5 text-xs">
+              <div class="font-medium truncate">neon-saga-07-final.mp4</div>
+              <div class="text-[var(--color-text-faint)] text-[10px]">18m • 4K • yesterday</div>
+            </div>
+          </div>
+          <div onclick="viewMedia(1)" class="vault-card cursor-pointer card overflow-hidden">
+            <div class="h-20 bg-gradient-to-br from-amber-900 to-[var(--color-accent)] flex items-center justify-center">
+              <i data-lucide="video" class="w-6 h-6 text-white/70"></i>
+            </div>
+            <div class="p-2.5 text-xs">
+              <div class="font-medium truncate">btc-desk-031-clip.mp4</div>
+              <div class="text-[var(--color-text-faint)] text-[10px]">2m 14s • Telegram</div>
+            </div>
+          </div>
+          <div onclick="viewMedia(2)" class="vault-card cursor-pointer card overflow-hidden">
+            <div class="h-20 bg-gradient-to-br from-slate-900 to-zinc-800 flex items-center justify-center">
+              <i data-lucide="video" class="w-6 h-6 text-white/70"></i>
+            </div>
+            <div class="p-2.5 text-xs">
+              <div class="font-medium truncate">epic-os-boot-2026-06-12.mov</div>
+              <div class="text-[var(--color-text-faint)] text-[10px]">41s • Install demo</div>
+            </div>
+          </div>
+        </div>
+        <div class="text-[10px] text-right mt-1.5 text-[var(--color-text-faint)] font-mono">312 files • 187 GB • <a href="https://github.com/Sm0k367/epic-system/tree/master/media/vault" target="_blank" class="text-[var(--color-primary)] hover:underline">browse on GitHub (LFS)</a></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PERSONAL VS RETAIL + ARCHITECTURE -->
+  <div class="section bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+    <div class="container">
+      <h3 class="font-display text-3xl font-semibold tracking-tight mb-6">Personal vs Retail</h3>
+      
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-[var(--color-border)] text-left">
+              <th class="py-3 pr-6 font-semibold text-[var(--color-text-faint)]">Dimension</th>
+              <th class="py-3 px-6 font-semibold">Personal (you)</th>
+              <th class="py-3 px-6 font-semibold">Retail (ecosystem)</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-[var(--color-border)]">
+            <tr>
+              <td class="py-3 pr-6 font-medium text-[var(--color-text-muted)]">Paths</td>
+              <td class="py-3 px-6 font-mono text-xs">SMOKE, OneDrive desk, acer.json</td>
+              <td class="py-3 px-6 font-mono text-xs">%USERPROFILE% (generic)</td>
+            </tr>
+            <tr>
+              <td class="py-3 pr-6 font-medium text-[var(--color-text-muted)]">Telegram</td>
+              <td class="py-3 px-6"><span class="font-mono text-[var(--color-primary)]">@epictech_assistant_bot</span><br><span class="text-xs text-[var(--color-text-faint)]">private, full repo access</span></td>
+              <td class="py-3 px-6"><span class="font-mono">@epictech_public_bot</span><br><span class="text-xs text-[var(--color-text-faint)]">public funnel only</span></td>
+            </tr>
+            <tr>
+              <td class="py-3 pr-6 font-medium text-[var(--color-text-muted)]">Media projects</td>
+              <td class="py-3 px-6">Neon saga, full desk, all raw clips</td>
+              <td class="py-3 px-6">Core OS + clean templates only</td>
+            </tr>
+            <tr>
+              <td class="py-3 pr-6 font-medium text-[var(--color-text-muted)]">Secrets</td>
+              <td class="py-3 px-6 text-[var(--color-error)]">~/.openclaw/ only • never in repo</td>
+              <td class="py-3 px-6 text-[var(--color-success)]">Never present</td>
+            </tr>
+            <tr>
+              <td class="py-3 pr-6 font-medium text-[var(--color-text-muted)]">Sync rule</td>
+              <td class="py-3 px-6">Always via <span class="font-mono">repo_sync.ps1</span></td>
+              <td class="py-3 px-6">Standard git push</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <div class="mt-5 text-xs bg-[var(--color-bg)] border border-[var(--color-border)] rounded-xl p-4 font-mono text-[var(--color-text-muted)]">
+        <strong class="text-[var(--color-warning)]">NEVER COMMIT:</strong> tokens, .env, MEMORY.md, media binaries, personal paths. Epic OS must keep working on SMOKE after every sync.
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER / FINAL CTA -->
+  <div class="container py-12 text-center">
+    <div class="max-w-md mx-auto">
+      <div class="mb-4 text-[var(--color-text-muted)] text-sm">This is a sanitized, public, interactive demo of the private Epic System.</div>
+      
+      <div class="flex flex-col sm:flex-row gap-3 justify-center">
+        <button onclick="continueSession()" class="btn btn-primary px-8 py-3">
+          <i data-lucide="play"></i>
+          <span>Enter the live system</span>
+        </button>
+        <button onclick="window.open('https://github.com/Sm0k367/epic-system', '_blank')" class="btn btn-secondary px-8 py-3">
+          View private source
+        </button>
+      </div>
+      
+      <div class="text-[10px] text-[var(--color-text-faint)] mt-8 font-mono tracking-widest">EPIC SYSTEM • SMOKE • 2026</div>
+    </div>
+  </div>
+
+  <!-- Modals -->
+  <!-- Terminal Modal -->
+  <div id="terminal-modal" onclick="if (event.target.id === 'terminal-modal') hideTerminalModal()" class="hidden fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4">
+    <div onclick="event.stopImmediatePropagation()" class="os-window w-full max-w-2xl">
+      <div class="px-4 py-2.5 bg-[var(--color-surface-2)] border-b border-[var(--color-border)] flex items-center justify-between text-xs">
+        <div class="flex items-center gap-2">
+          <div class="flex gap-1.5">
+            <div class="w-3 h-3 rounded-full bg-[#ff5f57]"></div>
+            <div class="w-3 h-3 rounded-full bg-[#febc2e]"></div>
+            <div class="w-3 h-3 rounded-full bg-[#28c840]"></div>
+          </div>
+          <span id="terminal-title" class="font-mono text-[var(--color-text-muted)]">epic@smoke ~ %USERPROFILE%\.openclaw\workspace</span>
+        </div>
+        <button onclick="hideTerminalModal()" class="text-[var(--color-text-muted)] hover:text-[var(--color-text)]">ESC</button>
+      </div>
+      <div id="terminal-body" class="terminal p-5 text-sm font-mono h-[360px] overflow-auto whitespace-pre leading-relaxed"></div>
+      <div class="px-4 py-3 border-t border-[var(--color-border)] bg-[var(--color-surface)] flex gap-2">
+        <input id="terminal-input" onkeydown="if (event.key === 'Enter') runTerminalCommand()" placeholder="Type command or press Enter to continue..." class="flex-1 bg-transparent text-sm outline-none font-mono placeholder:text-[var(--color-text-faint)]">
+        <button onclick="runTerminalCommand()" class="btn btn-primary text-xs px-4">RUN</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- File / Folder Modal -->
+  <div id="file-modal" onclick="if (event.target.id === 'file-modal') hideFileModal()" class="hidden fixed inset-0 z-[100] bg-black/80 flex items-center justify-center p-4">
+    <div onclick="event.stopImmediatePropagation()" class="card w-full max-w-lg p-0 overflow-hidden">
+      <div class="px-5 py-4 border-b border-[var(--color-border)] flex justify-between items-center">
+        <div id="file-modal-title" class="font-semibold"></div>
+        <button onclick="hideFileModal()" class="text-xs">CLOSE</button>
+      </div>
+      <div id="file-modal-body" class="p-5 text-sm"></div>
+    </div>
+  </div>
+  
+  <!-- Media Viewer Modal -->
+  <div id="media-modal" onclick="if (event.target.id === 'media-modal') hideMediaModal()" class="hidden fixed inset-0 z-[110] bg-black/95 flex items-center justify-center p-4">
+    <div onclick="event.stopImmediatePropagation()" class="w-full max-w-3xl">
+      <div class="flex justify-between items-center mb-2 px-1 text-xs text-white/50">
+        <span id="media-filename"></span>
+        <button onclick="hideMediaModal()" class="hover:text-white">CLOSE</button>
+      </div>
+      <div id="media-content" class="aspect-video bg-black rounded-2xl overflow-hidden border border-white/10 flex items-center justify-center">
+        <!-- Dynamic content injected by JS -->
+      </div>
+      <div class="mt-3 text-xs text-center text-white/40">This is a live demo. Real files live in the private media/vault (Git LFS) on SMOKE.</div>
+    </div>
+  </div>
+
+  <script>
+    // Tailwind script
+    function initTailwind() {
+      document.documentElement.classList.add('dark');
+    }
+    
+    function toggleTheme() {
+      const html = document.documentElement;
+      const isDark = html.getAttribute('data-theme') === 'dark';
+      
+      if (isDark) {
+        html.setAttribute('data-theme', 'light');
+        html.classList.remove('dark');
+      } else {
+        html.setAttribute('data-theme', 'dark');
+        html.classList.add('dark');
+      }
+      
+      // Re-init lucide after theme change
+      setTimeout(() => lucide.createIcons(), 10);
+    }
+    
+    let currentTerminalContext = '';
+    
+    function showTerminalModal(context) {
+      const modal = document.getElementById('terminal-modal');
+      const body = document.getElementById('terminal-body');
+      const title = document.getElementById('terminal-title');
+      const input = document.getElementById('terminal-input');
+      
+      currentTerminalContext = context;
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      
+      let header = '';
+      let initialOutput = '';
+      
+      if (context === 'bootstrap') {
+        header = 'epic@smoke ~ bootstrap/heartbeat.sh';
+        initialOutput = `$ ./scripts/heartbeat.sh --full\n[HEARTBEAT] SMOKE profile loaded (Acer)\n[HEARTBEAT] Last continuity snapshot: 2026-06-12 23:41\n[HEARTBEAT] OpenClaw secrets verified ✓\n[HEARTBEAT] 3 agents healthy\n[HEARTBEAT] Media vault index synced (312 files)\n\n✓ Continuity OK. Next scheduled beat in 3s.`;
+      } else if (context === 'install-retail') {
+        header = 'epic@new-machine ~ INSTALL LENOVO.bat';
+        initialOutput = `> Cloning into $env:USERPROFILE\\.openclaw\\workspace...\n> Running retail/epic-os/install.ps1 -Profile lenovo\n\n[OK] Epic OS skeleton installed.\n[OK] Retail scripts copied.\n[INFO] No personal secrets present — good.\n\nNext: restore your OpenClaw backup (from SMOKE).\n\nEpic OS ready at http://localhost:8780`;
+      } else if (context === 'epicos') {
+        header = 'epic@smoke ~ Epic OS.bat';
+        initialOutput = `Starting Epic OS kernel...\n\n  Shell listening on 0.0.0.0:8780\n  Telegram bridge active (@epictech_assistant_bot)\n  Workspace: %USERPROFILE%\\.openclaw\\workspace\n\n[READY] Open http://127.0.0.1:8780`;
+      } else {
+        header = 'epic@smoke ~ terminal';
+        initialOutput = `Welcome to the Epic System live demo terminal.\nType 'help' for available demo commands.`;
+      }
+      
+      title.textContent = header;
+      body.innerHTML = initialOutput + '\n\n';
+      input.focus();
+      body.scrollTop = body.scrollHeight;
+    }
+    
+    function hideTerminalModal() {
+      const modal = document.getElementById('terminal-modal');
+      modal.classList.remove('flex');
+      modal.classList.add('hidden');
+    }
+    
+    function runTerminalCommand() {
+      const input = document.getElementById('terminal-input');
+      const body = document.getElementById('terminal-body');
+      const val = input.value.trim();
+      if (!val) return;
+      
+      body.innerHTML += `\n$ ${val}\n`;
+      
+      let response = '';
+      const lower = val.toLowerCase();
+      
+      if (lower === 'help') {
+        response = `Available demo commands:\n  status          — show current Epic OS state\n  heartbeat       — trigger continuity check\n  vault list      — list recent media\n  sync            — simulate repo_sync.ps1\n  continue        — launch the full session\n  exit            — close terminal`;
+      } else if (lower === 'status') {
+        response = `SMOKE: ONLINE\nEpic OS: RUNNING (8780)\nLast sync: 2m ago\nAgents: 3 healthy\nUptime: 47d 9h`;
+      } else if (lower === 'heartbeat' || lower.includes('heart')) {
+        response = `[HEARTBEAT] 2026-06-13 01:19:47\nProfile: SMOKE (Acer)\nSecrets: OK\nVault: 312 files indexed\nContinuity: GREEN`;
+        setTimeout(() => {
+          document.querySelectorAll('.stat-value')[1].textContent = '100%';
+        }, 800);
+      } else if (lower.includes('vault')) {
+        response = `python scripts/media_vault.py list\n\nneon-saga-07-final.mp4 (18m)\nbtc-desk-031-clip.mp4 (2m)\nepic-os-boot-2026-06-12.mov\n... (309 more)\n\nRun 'vault prune-local' after push.`;
+      } else if (lower.includes('sync')) {
+        response = `pwsh -File personal/scripts/repo_sync.ps1\n\n[SYNC] Staging safe files only...\n[SYNC] Pushing to github.com/Sm0k367/epic-system\n[SYNC] 14 files changed. All personal data excluded.\n✓ Success.`;
+      } else if (lower === 'continue' || lower.includes('session')) {
+        response = `Launching CONTINUE SESSION...\nOpening SESSION.md\nStarting Epic OS on :8780\nConnecting Telegram bridge...`;
+        setTimeout(() => {
+          hideTerminalModal();
+          continueSession();
+        }, 1200);
+      } else if (lower === 'exit') {
+        hideTerminalModal();
+        return;
+      } else {
+        response = `Command simulated in demo. Real version runs on SMOKE.`;
+      }
+      
+      body.innerHTML += response + '\n';
+      input.value = '';
+      body.scrollTop = body.scrollHeight;
+    }
+    
+    function launchAction(action) {
+      const body = document.getElementById('terminal-body');
+      
+      if (action === 'continue') {
+        continueSession();
+      } else if (action === 'epicos') {
+        showTerminalModal('epicos');
+      } else if (action === 'sync') {
+        showTerminalModal('sync');
+        setTimeout(() => {
+          if (!document.getElementById('terminal-modal').classList.contains('hidden')) {
+            const b = document.getElementById('terminal-body');
+            b.innerHTML += `\n$ pwsh -File personal/scripts/repo_sync.ps1\n\n[SYNC] Staging...\n[SYNC] 8 files • 0 secrets\n[SYNC] Push complete. GitHub updated.\n\n✓ SMOKE workspace remains clean.`;
+          }
+        }, 700);
+      } else if (action === 'install') {
+        showTerminalModal('install-retail');
+      }
+    }
+    
+    function continueSession() {
+      const modal = document.getElementById('terminal-modal');
+      const bodyEl = document.getElementById('terminal-body');
+      const title = document.getElementById('terminal-title');
+      
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      
+      title.textContent = 'CONTINUE SESSION.bat — SMOKE';
+      
+      bodyEl.innerHTML = `> Opening SESSION.md...\n> Starting Epic OS kernel on port 8780...\n> Connecting @epictech_assistant_bot (full repo access)...\n\n`;
+      
+      setTimeout(() => {
+        bodyEl.innerHTML += `✓ Epic OS ready at http://127.0.0.1:8780\n\n`;
+        bodyEl.innerHTML += `This is a live demo. In the real system this would:\n- Open your actual browser to :8780\n- Load your full personal context\n- Give the Telegram bot live access to the repo\n\n`;
+        
+        // Add a nice "open browser" button inside terminal
+        const btn = document.createElement('button');
+        btn.className = 'mt-3 text-xs px-4 py-2 rounded bg-[var(--color-primary)] text-white font-medium';
+        btn.textContent = 'OPEN SIMULATED EPIC OS SHELL';
+        btn.onclick = () => {
+          hideTerminalModal();
+          showSimulatedEpicOS();
+        };
+        bodyEl.appendChild(btn);
+        bodyEl.scrollTop = bodyEl.scrollHeight;
+      }, 900);
+    }
+    
+    function showSimulatedEpicOS() {
+      const win = window.open('', '_blank', 'width=1280,height=800');
+      if (!win) {
+        alert('Popup blocked. In a real browser this would open the full Epic OS interface at :8780.');
+        return;
+      }
+      
+      win.document.write(`
+        <!DOCTYPE html><html><head><title>Epic OS — SMOKE</title>
+        <style>
+          body { margin:0; background:#0a090e; color:#ddd; font-family: system-ui; }
+          .topbar { background:#111; padding:8px 16px; display:flex; align-items:center; gap:12px; font-size:13px; border-bottom:1px solid #222; }
+          .sidebar { width:220px; background:#111; border-right:1px solid #222; height:100vh; padding:12px; }
+          .main { flex:1; padding:24px; }
+          .window { background:#1a181f; border:1px solid #322d39; border-radius:12px; }
+          .card { background:#17151c; padding:16px; border-radius:8px; margin-bottom:12px; }
+        </style></head><body>
+        <div class="topbar">
+          <strong>EPIC OS</strong> 
+          <span style="color:#4ade80">●</span> SMOKE — Acer • 8780
+          <div style="margin-left:auto; font-size:11px; opacity:0.6">SESSION ACTIVE • TELEGRAM BRIDGE LIVE</div>
+        </div>
+        <div style="display:flex">
+          <div class="sidebar">
+            <div style="font-size:11px; opacity:0.6; margin-bottom:8px">WORKSPACE</div>
+            <div style="font-size:13px; line-height:1.7">
+              personal/scripts<br>
+              personal/bootstrap<br>
+              personal/skills<br>
+              btc_epictechai_desk<br>
+              epictech_ecosystem
+            </div>
+            <div style="margin-top:40px; font-size:11px; opacity:0.6">QUICK ACTIONS</div>
+            <button onclick="alert('In real Epic OS this would run the script and stream output here.')" style="margin-top:6px; width:100%; text-align:left; font-size:12px; padding:6px 10px; background:#222; border:none; color:#ccc; border-radius:4px">Run media_vault.py list</button>
+          </div>
+          <div class="main" style="font-size:14px">
+            <h1 style="font-size:21px; margin-bottom:4px">Welcome back, SMOKE.</h1>
+            <p style="opacity:0.6">Everything is running. Last continuity check passed 11 seconds ago.</p>
+            
+            <div class="window" style="margin-top:32px; padding:20px; max-width:620px">
+              <div style="display:flex; gap:16px; margin-bottom:20px">
+                <div class="card" style="flex:1">47d uptime</div>
+                <div class="card" style="flex:1">312 vault files</div>
+                <div class="card" style="flex:1">3 agents healthy</div>
+              </div>
+              <div style="font-family:monospace; font-size:12px; background:#111; padding:14px; border-radius:6px">
+                $ python personal/scripts/repo_sync.ps1<br>
+                ✓ Pushed 8 files safely. No secrets.
+              </div>
+            </div>
+            
+            <div style="margin-top:30px; font-size:11px; opacity:0.4">This is a visual simulation of the real Epic OS running on SMOKE at port 8780. The real interface has full agent control, media generation, trading desk, and Telegram command surface.</div>
+          </div>
+        </div>
+        <script>console.log('%c[Epic OS] Simulated live session ready', 'color:#555');</script>
+        </body></html>
+      `);
+      win.document.close();
+    }
+    
+    function showFileModal(section) {
+      const modal = document.getElementById('file-modal');
+      const title = document.getElementById('file-modal-title');
+      const body = document.getElementById('file-modal-body');
+      
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      
+      if (section === 'personal/scripts') {
+        title.textContent = 'personal/scripts/';
+        body.innerHTML = `
+          <div class="space-y-2 text-xs">
+            <div class="font-mono">• epic_kernel.py — core OS loop</div>
+            <div class="font-mono">• media_vault.py — auto upload + prune</div>
+            <div class="font-mono">• trading_desk.py — btc signals + execution</div>
+            <div class="font-mono">• bootstrap.py — machine profile loader</div>
+            <div class="font-mono">• repo_sync.ps1 — safe GitHub push</div>
+            <div class="mt-4 pt-3 border-t border-[var(--color-border)] text-[var(--color-text-faint)]">These scripts power the live system on SMOKE. Never committed with secrets.</div>
+          </div>`;
+      } else if (section === 'personal/bootstrap') {
+        title.textContent = 'personal/bootstrap/';
+        body.innerHTML = `
+          <div class="space-y-2 text-xs">
+            <div>• heartbeat.sh — 3-second continuity daemon</div>
+            <div>• machine_profiles/ — acer.json, lenovo.json</div>
+            <div>• restore_from_backup.ps1 — OpenClaw secrets</div>
+            <div class="mt-3 text-[var(--color-accent)]">This is what makes the system future-proof and recoverable on any new machine.</div>
+          </div>`;
+      } else if (section === 'personal/skills') {
+        title.textContent = 'personal/skills/';
+        body.innerHTML = `<div class="text-xs">epic-os skillset, agent definitions, custom tools for the private Telegram bot and Epic OS kernel. Sanitized retail version lives in retail/epic-os/.</div>`;
+      } else if (section === 'btc') {
+        title.textContent = 'btc_epictechai_desk/';
+        body.innerHTML = `<div class="text-xs">Private trading workspace. Live signals, position management, and research. Never synced to the public retail product.</div>`;
+      } else {
+        title.textContent = section;
+        body.innerHTML = `<div class="text-xs text-[var(--color-text-muted)]">This folder contains private personal configuration and projects. Contents are excluded from git via .gitignore and repo_sync.ps1 rules.</div>`;
+      }
+    }
+    
+    function hideFileModal() {
+      const modal = document.getElementById('file-modal');
+      modal.classList.remove('flex');
+      modal.classList.add('hidden');
+    }
+    
+    let mediaItems = [
+      { name: "neon-saga-07-final.mp4", type: "video", duration: "18m 04s", date: "Jun 12", desc: "Final render of the Neon Saga episode 7. Auto-uploaded from render node." },
+      { name: "btc-desk-031-clip.mp4", type: "video", duration: "2m 14s", date: "Jun 11", desc: "Telegram bot clip — live trading desk walkthrough sent to @epictech_assistant_bot." },
+      { name: "epic-os-boot-2026-06-12.mov", type: "video", duration: "41s", date: "Jun 12", desc: "Fresh Lenovo install demo. Shows one-click bootstrap working on new hardware." }
+    ];
+    
+    function viewMedia(index) {
+      const modal = document.getElementById('media-modal');
+      const content = document.getElementById('media-content');
+      const filename = document.getElementById('media-filename');
+      const item = mediaItems[index];
+      
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      filename.textContent = `${item.name} • ${item.duration} • ${item.date}`;
+      
+      content.innerHTML = `
+        <div class="w-full h-full flex flex-col items-center justify-center bg-zinc-950 text-center p-8">
+          <i data-lucide="play-circle" class="w-16 h-16 text-white/20 mb-4"></i>
+          <div class="text-white font-semibold mb-1">${item.name}</div>
+          <div class="text-white/40 text-sm mb-6">${item.desc}</div>
+          
+          <div class="flex gap-3">
+            <button onclick="simulatePlay(this)" class="px-5 py-2 text-sm rounded-lg bg-white/10 hover:bg-white/15 text-white flex items-center gap-2">
+              <i data-lucide="play" class="w-4 h-4"></i> 
+              <span>PLAY IN DEMO</span>
+            </button>
+            <button onclick="simulateGitHubLink()" class="px-5 py-2 text-sm rounded-lg border border-white/20 hover:bg-white/5 text-white/70">OPEN ON GITHUB (LFS)</button>
+          </div>
+        </div>
+      `;
+      lucide.createIcons();
+    }
+    
+    function simulatePlay(btn) {
+      btn.innerHTML = `<span class="animate-pulse">STREAMING FROM SMOKE MEDIA VAULT...</span>`;
+      setTimeout(() => {
+        btn.innerHTML = `✓ Played in demo (real files on SMOKE)`;
+        btn.disabled = true;
+      }, 1400);
+    }
+    
+    function simulateGitHubLink() {
+      window.open('https://github.com/Sm0k367/epic-system/tree/master/media/vault', '_blank');
+    }
+    
+    function hideMediaModal() {
+      const modal = document.getElementById('media-modal');
+      modal.classList.remove('flex');
+      modal.classList.add('hidden');
+    }
+    
+    function showVaultActions() {
+      const modal = document.getElementById('terminal-modal');
+      const body = document.getElementById('terminal-body');
+      const title = document.getElementById('terminal-title');
+      
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      title.textContent = 'python scripts/media_vault.py';
+      
+      body.innerHTML = `$ python scripts/media_vault.py list\n\nShowing 312 files...\n\n  neon-saga-07-final.mp4   18m  • 4K\n  btc-desk-031-clip.mp4    2m   • Telegram\n  epic-os-boot-2026-06-12  41s\n  ... (309 more)\n\n$ python scripts/media_vault.py prune-local\n\nPruning local copies that are already on Git LFS...\nFreed 41.2 GB on SMOKE.\n\n✓ Done.`;
+    }
+    
+    function runHeartbeat() {
+      const btns = document.querySelectorAll('button');
+      const origText = event.currentTarget?.innerText || '';
+      
+      const toast = document.createElement('div');
+      toast.style.cssText = 'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:200';
+      toast.className = 'px-5 py-2 rounded-full bg-[var(--color-success)] text-black text-sm font-medium shadow-lg flex items-center gap-2';
+      toast.innerHTML = `<i data-lucide="check-circle" class="w-4 h-4"></i> <span>Heartbeat recorded. Continuity GREEN.</span>`;
+      document.body.appendChild(toast);
+      lucide.createIcons();
+      
+      setTimeout(() => {
+        toast.style.transition = 'all 200ms';
+        toast.style.opacity = '0';
+        setTimeout(() => toast.remove(), 200);
+      }, 2400);
+    }
+    
+    function initLucide() {
+      lucide.createIcons();
+    }
+    
+    function initKeyboardShortcuts() {
+      document.addEventListener('keydown', (e) => {
+        if (e.key === '/' && document.activeElement.tagName === 'BODY') {
+          e.preventDefault();
+          const term = document.getElementById('terminal-modal');
+          if (!term.classList.contains('hidden')) {
+            document.getElementById('terminal-input').focus();
+          } else {
+            showTerminalModal('default');
+          }
+        }
+        if (e.key.toLowerCase() === 's' && e.metaKey) {
+          e.preventDefault();
+          launchAction('sync');
+        }
+      });
+      
+      // Easter egg: konami-ish
+      let seq = '';
+      document.addEventListener('keypress', (e) => {
+        seq += e.key;
+        if (seq.length > 6) seq = seq.slice(-6);
+        if (seq.includes('epic')) {
+          seq = '';
+          const logo = document.querySelector('.w-9.h-9');
+          if (logo) {
+            logo.style.transition = 'transform 400ms';
+            logo.style.transform = 'rotate(180deg) scale(1.4)';
+            setTimeout(() => { logo.style.transform = ''; }, 900);
+          }
+        }
+      });
+    }
+    
+    function initNav() {
+      // Simple active state on scroll for the two main sections
+      const personal = document.getElementById('personal');
+      const retail = document.getElementById('retail');
+      const continuity = document.getElementById('continuity');
+      
+      // Could add scrollspy here if needed. For now the demo is clean.
+    }
+    
+    function init() {
+      initTailwind();
+      initLucide();
+      initKeyboardShortcuts();
+      initNav();
+      
+      // Boot message in console for the curious
+      console.log('%c[EPIC SYSTEM DEMO] Live home base ready. All actions are simulated but faithful to the real private repo.', 'color:#655c6f');
+      
+      // Random live stat jitter (makes it feel alive)
+      setInterval(() => {
+        const uptime = document.querySelector('.stat-value');
+        if (uptime && Math.random() > 0.92) {
+          uptime.textContent = '47d 9h ' + (14 + Math.floor(Math.random()*4)) + 'm';
+        }
+      }, 22000);
+      
+      // Show a tiny welcome toast once
+      setTimeout(() => {
+        if (!document.hidden) {
+          // no intrusive toast on first load — user can explore
+        }
+      }, 5200);
+    }
+    
+    // Boot
+    window.onload = init;
+  </script>
+</body>
+</html>

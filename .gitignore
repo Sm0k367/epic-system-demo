@@ -1,0 +1,4 @@
+# Demo is clean; keep it minimal
+.DS_Store
+*.log
+node_modules/
